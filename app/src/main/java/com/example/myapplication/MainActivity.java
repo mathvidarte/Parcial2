@@ -39,16 +39,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         okBtn.setOnClickListener(this);
 
 
-
+        //----------Metodo para leer la pregunta--------------
         readQuestion();
     }
 
     private void readQuestion() {
+        //----------Entro a la rama------------------
         DatabaseReference ref = db.getReference().child("question").child("actual");
 
         ref.addValueEventListener(
                 new ValueEventListener() {
                     @Override
+                    //------------Leo la pregunta que esta en el firebase------------
                     public void onDataChange(DataSnapshot data) {
                         pregunta.setText(" ");
                         for(DataSnapshot child: data.getChildren()) {
@@ -67,21 +69,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-       /* switch (v.getId()){
+        switch (v.getId()){
             case R.id.okBtn:
-                theId = db.getReference().child("question").child("web").push().getKey();
-                Log.d(">>>>>>>>", theId);
-                String numero = puntaje.getText().toString();
-                DatabaseReference ref = db.getReference().child("question").child("web").child(theId);
+                //-----------Entro a la rama-------------------
+                DatabaseReference ref = db.getReference().child("question").child("actual").child("puntaje");
 
+                //----------Creo objeto del puntaje--------------
                 Puntaje puntajes = new Puntaje(
                         theId,
                         puntaje.getText().toString()
                 );
+                //-----------Envio al firebase----------
                 ref.setValue(puntajes);
+                puntaje.setText(" ");
                 break;
 
 
-        }*/
+        }
     }
 }
